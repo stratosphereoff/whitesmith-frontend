@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+/* v4 Theme Tokens - automatically generate bg-rpg-bg, text-rpg-text, etc. */
+@theme {
+  --color-rpg-bg: #0b0b0e;
+  --color-rpg-panel: #13131a;
+  --color-rpg-border: #2a2a35;
+  --color-rpg-border-hover: #3f3f4f;
+  --color-rpg-text: #e4e4ec;
+  --color-rpg-text-muted: #888899;
+  --color-rpg-accent: #d97706;
+  --color-rpg-success: #059669;
+  --color-rpg-danger: #dc2626;
+
+  --color-rarity-normal: #9ca3af;
+  --color-rarity-magic: #60a5fa;
+  --color-rarity-rare: #fbbf24;
+  --color-rarity-unique: #f97316;
+
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --animate-craft-roll: craftRoll 0.6s ease-in-out;
+  --animate-glow-pulse: glowPulse 2s infinite;
+  --animate-fade-in: fadeIn 0.3s ease-out forwards;
+  --animate-slide-up: slideUp 0.3s ease-out forwards;
+}
+
+@keyframes craftRoll {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.03) rotate(-1deg); }
+  50% { transform: scale(1.05) rotate(1deg); }
+  75% { transform: scale(1.03) rotate(-0.5deg); }
+}
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(251, 191, 36, 0.2); }
+  50% { box-shadow: 0 0 16px rgba(251, 191, 36, 0.5); }
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-rpg-bg);
+    color: var(--color-rpg-text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at 50% 0%, rgba(217, 119, 6, 0.08) 0%, transparent 50%);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    letter-spacing: 0.05em;
+    color: var(--color-rpg-text);
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--color-rpg-panel); }
+  ::-webkit-scrollbar-thumb { 
+    background: var(--color-rpg-border); 
+    border-radius: 9999px; 
+    transition: background 200ms; 
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-rpg-border-hover); }
+}
+
+@layer components {
+  /* Panel */
+  .panel-rpg {
+    background-color: var(--color-rpg-panel);
+    border: 1px solid var(--color-rpg-border);
+    border-radius: 0.5rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+    backdrop-filter: blur(4px);
+  }
+
+  /* Button Base */
+  .btn-base {
+    padding: 0.625rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: all 200ms;
+  }
+  .btn-base:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-base:active { transform: scale(0.98); }
+  .btn-base:focus { outline: none; box-shadow: 0 0 0 2px var(--color-rpg-panel), 0 0 0 4px currentColor; }
+
+  /* Button Variants */
+  .btn-primary {
+    composes: btn-base;
+    background-color: var(--color-rpg-accent);
+    color: #000;
+    box-shadow: 0 10px 15px -3px rgba(217, 119, 6, 0.3);
+  }
+  .btn-primary:hover { background-color: var(--color-amber-500); }
+  .btn-primary:focus { --tw-ring-color: var(--color-amber-400); }
+
+  .btn-secondary {
+    composes: btn-base;
+    background-color: rgb(31 41 55);
+    border: 1px solid var(--color-rpg-border);
+    color: inherit;
+  }
+  .btn-secondary:hover { background-color: rgb(55 65 81); border-color: var(--color-rpg-border-hover); }
+  .btn-secondary:focus { --tw-ring-color: var(--color-gray-500); }
+
+  .btn-success {
+    composes: btn-base;
+    background-color: var(--color-rpg-success);
+    color: #fff;
+    box-shadow: 0 10px 15px -3px rgba(5, 150, 105, 0.2);
+  }
+  .btn-success:hover { background-color: var(--color-emerald-500); }
+  .btn-success:focus { --tw-ring-color: var(--color-emerald-400); }
+
+  /* Rarity & Stat Classes */
+  .rarity-text { font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .rarity-normal { color: var(--color-rarity-normal); }
+  .rarity-magic { color: var(--color-rarity-magic); }
+  .rarity-rare { color: var(--color-rarity-rare); }
+  .rarity-unique { color: var(--color-rarity-unique); }
+
+  .stat-prefix { color: var(--color-blue-400); }
+  .stat-suffix { color: var(--color-yellow-400); }
+  .stat-implicit { color: var(--color-purple-400); }
+  .stat-value { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-weight: 600; }
+}
