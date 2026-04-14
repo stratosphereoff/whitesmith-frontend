@@ -59,7 +59,7 @@ function App() {
     <div className="min-h-screen flex flex-col">
       <header className="border-b border-rpg-border bg-rpg-panel/80 backdrop-blur-md sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <h1 className="text-xl md:text-2xl text-rpg-accent drop-shadow-sm">⚔️ RPG Crafting Simulator</h1>
+          <h1 className="text-xl md:text-2xl text-rpg-accent drop-shadow-sm">Whitesmith.io</h1>
           <div className="flex items-center gap-3 text-sm">
           <div className={`flex items-center gap-2 px-2 py-1 rounded-full ${
             isConnected ? 'bg-emerald-900/30 text-emerald-400' : 'bg-red-900/30 text-red-400'
@@ -78,46 +78,12 @@ function App() {
           <ItemBaseSelector bases={availableBases} onSelect={setSelectedBase} selectedId={selectedBase?.id} />
         </section>
 
-        <section className="lg:col-span-4 space-y-4">
+        <section className="lg:col-span-4">
           <CraftingPanel 
             selectedBase={selectedBase} 
             onItemCrafted={setCurrentCraft} 
-            isCrafting={isCrafting} 
-            message={message}
-            onClearMessage={() => setMessage('')}
+            playerId="player1"
           />
-          
-          {currentCraft && (
-            <div className="panel-rpg p-4 animate-slide-up">
-              <h3 className="text-lg mb-3 text-rpg-accent">🔨 Craft Result</h3>
-              <div className={`p-3 rounded border mb-3 ${
-                currentCraft.rarity === 'rare' ? 'border-rarity-rare bg-yellow-900/10' :
-                currentCraft.rarity === 'magic' ? 'border-rarity-magic bg-blue-900/10' :
-                'border-rpg-border bg-gray-900/30'
-              }`}>
-                <div className="flex justify-between items-start mb-2">
-                  <span className={`rarity-text rarity-${currentCraft.rarity}`}>{currentCraft.rarity}</span>
-                  <span className="text-xs text-rpg-textMuted">{currentCraft.base.name}</span>
-                </div>
-                {currentCraft.base.implicitMods?.map(mod => (
-                  <div key={mod.id} className="stat-implicit text-sm">{mod.name}: <span className="stat-value">+{mod.value}</span> {mod.stat}</div>
-                ))}
-                {currentCraft.mods.map(mod => (
-                  <div key={mod.id} className={`text-sm ${mod.isPrefix ? 'stat-prefix' : 'stat-suffix'}`}>
-                    {mod.name}: <span className="stat-value">+{mod.value}</span> {mod.stat}
-                  </div>
-                ))}
-              </div>
-              <div className="flex gap-2">
-                <button onClick={handleSaveToInventory} disabled={isCrafting} className="btn-success flex-1">
-                  💾 Save to Inventory
-                </button>
-                <button onClick={() => setCurrentCraft(null)} className="btn-secondary">
-                  🗑️ Discard
-                </button>
-              </div>
-            </div>
-          )}
         </section>
 
         <section className="lg:col-span-5">

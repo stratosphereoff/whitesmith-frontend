@@ -86,7 +86,10 @@
     font-weight: 500;
     transition: all 200ms;
   }
-  .btn-base:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-base:disabled { 
+    opacity: 0.3; 
+    cursor: not-allowed; 
+  }
   .btn-base:active { transform: scale(0.98); }
   .btn-base:focus { outline: none; box-shadow: 0 0 0 2px var(--color-rpg-panel), 0 0 0 4px currentColor; }
 
@@ -97,8 +100,8 @@
     color: #000;
     box-shadow: 0 10px 15px -3px rgba(217, 119, 6, 0.3);
   }
-  .btn-primary:hover { background-color: var(--color-amber-500); }
-  .btn-primary:focus { --tw-ring-color: var(--color-amber-400); }
+  .btn-primary:not(:disabled):hover { background-color: var(--color-amber-500); }
+  .btn-primary:not(:disabled):focus { --tw-ring-color: var(--color-amber-400); }
 
   .btn-secondary {
     composes: btn-base;
@@ -106,8 +109,8 @@
     border: 1px solid var(--color-rpg-border);
     color: inherit;
   }
-  .btn-secondary:hover { background-color: rgb(55 65 81); border-color: var(--color-rpg-border-hover); }
-  .btn-secondary:focus { --tw-ring-color: var(--color-gray-500); }
+  .btn-secondary:not(:disabled):hover { background-color: rgb(55 65 81); border-color: var(--color-rpg-border-hover); }
+  .btn-secondary:not(:disabled):focus { --tw-ring-color: var(--color-gray-500); }
 
   .btn-success {
     composes: btn-base;
@@ -117,6 +120,11 @@
   }
   .btn-success:hover { background-color: var(--color-emerald-500); }
   .btn-success:focus { --tw-ring-color: var(--color-emerald-400); }
+
+  .btn-rpg:disabled {
+    opacity: 0.3; 
+    cursor: not-allowed; 
+  }
 
   /* Rarity & Stat Classes */
   .rarity-text { font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }

@@ -1,6 +1,6 @@
 import { io, Socket } from 'socket.io-client';
 import type {
-  CraftedItem, PlayerInventory, ItemBase, ServerToClientEvents, ClientToServerEvents,
+  CraftedItem, PlayerInventory, ItemBase, ServerToClientEvents, ClientToServerEvents, CraftRequest,
   CraftResult
 } from '../types/game';
 
@@ -13,9 +13,12 @@ export const socketApi = {
     socket.emit('player:connect', playerId);
   },
 
-  craftItem: (baseId: string, craftType: 'roll_new' | 'add_mod' | 'reforge' | 'augment'): Promise<CraftResult> => {
+  craftItem: (request: Omit<CraftRequest, 'playerId'>): Promise<CraftResult> => {
     return new Promise((resolve) => {
-      socket.emit('craft:request', { playerId: 'player1', baseId, craftType }, resolve);
+      socket.emit('craft:request', { 
+        playerId: 'player1', // TODO: use context/auth
+        ...request, 
+      }, resolve);
     });
   },
 
